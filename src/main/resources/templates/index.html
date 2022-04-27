@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
+    <body>
+        <div class='container container-app'>
+            <div th:replace="fragments/header.html :: header(option='Juegos')"></div>
+
+            <div id="content">
+                <main>
+                    <!-- Contenido -->
+                    <div class="page-header text-center">
+                        <h1>Bienvenido a Gameshop</h1>
+                    </div>
+
+                    <div class="container-fluid">
+
+                        <br>
+                        <h3>Integrantes</h3>
+                        <br>
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th style="width: 18%">Nombre</th>
+                                    <th style="width: 32%">Código</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Percy De La Rosa Vera</td>
+                                    <td>20192265</td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td>Alessandra Morales</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td>Angel Bravo</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td>Elianne Ticse</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </main>
+                <div th:replace="fragments/footer.html :: footer(year='2022')"></div>
+            </div>
+        </div>
+        <div th:replace="fragments/base.html :: jsScripts"></div>
+    </body>
+</html>
