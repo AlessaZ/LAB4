@@ -37,10 +37,20 @@ public class JuegosController {
 
     @GetMapping(value = {"", "/","/lista"})
     public String listaJuegos (Model model){
-        List<Juegos> juegosList = juegosRepository.findAllByOrderByPrecioDesc();
+        List<Juegos> juegosList = juegosRepository.findByOrderByPrecioDesc();
         model.addAttribute("juegosList", juegosList);
         return "juegos/lista";
     }
+
+    @GetMapping("/new")
+    public String nuevoJuegos(@ModelAttribute("juego") Juegos juego, Model model) {
+        model.addAttribute("listaGenero",generosRepository.findAll());
+        model.addAttribute("listaPlataform",plataformasRepository.findAll());
+        model.addAttribute("listaDistribuidoras",distribuidorasRepository.findAll());
+        return "juegos/editarFrm";
+    }
+
+
 
 //    public String vistaJuegos ( ){
 //

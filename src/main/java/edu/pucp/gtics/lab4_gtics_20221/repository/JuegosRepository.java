@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 
 public interface JuegosRepository extends JpaRepository<Juegos,Integer> {
-    public List<Juegos> findAllByOrderByPrecioDesc();
+    public List<Juegos> findByOrderByPrecioDesc();
 }

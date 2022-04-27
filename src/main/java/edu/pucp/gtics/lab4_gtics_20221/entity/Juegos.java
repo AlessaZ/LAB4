@@ -15,7 +15,7 @@ public class Juegos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idjuego", nullable = false)
-    private Integer id;
+    private int id;
 
     @Column(name = "nombre", length = 50)
     @Size(min=3, message = "El nombre debe contener como mínimo 3 caracteres")
