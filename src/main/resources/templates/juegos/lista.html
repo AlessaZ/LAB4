@@ -36,9 +36,14 @@
                     <tbody>
                     <tr th:each="juego, info : ${juegosList}">
                         <td th:text="${info.index+1}"></td>
-                        <td></td>
-                        <td><a class="btn btn-primary" th:title="Editar" th:href="@{'/juegos/editar?id=' + ${juego.idjuego}}"><span class="bi bi-pencil-square"></span></a></td>
-                        <td><a class="btn btn-danger" th:title="Borrar" th:href="@{'/juegos/borrar?id=' + ${juego.idjuego}}"><span class="bi bi-trash"></span></a></td>
+                        <td th:src="${juego.image}"></td>
+                        <td th:src="${juego.nombre}"></td>
+                        <td th:src="${juego.descripcion}"></td>
+                        <td th:src="${juego.plataforma}"></td>
+                        <td th:src="${juego.distribuidora}"></td>
+                        <td th:src="${juego.precio}"></td>
+                        <td><a class="btn btn-primary" th:title="Editar" th:href="@{'/juegos/editar?id=' + ${juego.id}}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a class="btn btn-danger" th:title="Borrar" th:href="@{'/juegos/borrar?id=' + ${juego.id}}"><span class="bi bi-trash"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
