@@ -18,38 +18,35 @@
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input th:field="*{nombre}" type="text" class="form-control">
-                                  <div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                       th:errors="*{nombre}"></div>
+                        <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
                         <input th:field="*{descripcion}" type="text" class="form-control">
-                                  <div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                       th:errors="*{descripcion}"></div>
+                        <div class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
                     </div>
                     <div class="form-group">
                         <label for="web">URL Web</label>
                         <input th:field="*{web}" type="text" class="form-control" >
-                                  <div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                       th:errors="*{web}"></div>
+                        <div class="text-danger" th:if="${#fields.hasErrors('web')}" th:errors="*{web}"></div>
                     </div>
                     <div class="form-group">
                         <label for="fundacion">Fundación</label>
                         <input th:field="*{fundacion}" type="text" class="form-control">
-                                                          <div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                                               th:errors="*{fundacion}"></div>
+                        <div class="text-danger" th:if="${#fields.hasErrors('fundacion')}" th:errors="*{fundacion}"></div>
                     </div>
                     <div class="form-group">
                         <label for="pais">Sede</label>
                         <select th:field="*{pais.idpais}" class="form-select">
                             <option th:each="pais: ${listaPaises}"
+                                    th:selected="${pais.idpais != null and (pais.idpais == distribuidora.pais.idpais)}"
                                     th:value="${pais.idpais}"
                                     th:text="${pais.nombre}">
                             </option>
                         </select>
                     </div>
 
-                    <div class="form-select">
+                    <div class="">
                         <a th:href="@{/distribuidoras/lista}" class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-primary"
                                 th:text="${distribuidora.getIddistribuidora() == 0 ? 'Crear' : 'Actualizar'}"></button>
