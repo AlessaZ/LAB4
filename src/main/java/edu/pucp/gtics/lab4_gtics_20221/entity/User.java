@@ -6,13 +6,22 @@ import java.io.Serializable;
 @Entity
 @Table(name="usuarios")
 public class User implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idusuario")
     private int idusuario;
+    @Column(name="apellidos")
     private String apellidos;
+    @Column(name="nombres")
     private String nombres;
+    @Column(name="correo")
     private String correo;
+    @Column(name="password")
     private String password;
+    @Column(name="autorizacion")
     private String autorizacion;
+    @Column(name="enabled")
     private int enabled;
 
     public int getIdusuario() {
