@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@Controller
 @RequestMapping("/distribuidoras")
 
 public class DistribuidorasController {
@@ -26,22 +27,46 @@ public class DistribuidorasController {
     @Autowired
     PaisesRepository paisesRepository;
 
-    @GetMapping(value = {"/lista"})
-    public String listaDistribuidoras ( ){
+    @GetMapping(value = {"/lista",""})
+    public String listaDistribuidoras (Model model){
 
+        model.addAttribute("listaDistribuidoras",distribuidorasRepository.findAll());
+
+        return "distribuidoras/lista";
     }
 
+    @GetMapping("/editar")
+    public String editarDistribuidoras(@ModelAttribute("distribuidora") Distribuidoras distribuidora,
+                                       Model model, RedirectAttributes atr,
+                                       @RequestParam("id") int id){
 
-    public String editarDistribuidoras(){
-
+        Optional<Distribuidoras> dist = distribuidorasRepository.findById(id);
+        if (dist.isPresent()){
+            distribuidora=dist.get();
+            model.addAttribute("distribuidora",distribuidora);
+            model.addAttribute("listaPaises",paisesRepository.findAll());
+            return "distribuidoras/editarFrm";
+        }
+        atr.addFlashAttribute("err","Hubo un problema, inténtelo nuevamente.");
+        return "redirect:/distribuidoras/lista";
     }
 
-    public String nuevaDistribuidora( ){
-
+    @GetMapping("/nuevo")
+    public String nuevaDistribuidora(Model model){
+        model.addAttribute("listaPaises",paisesRepository.findAll());
+        return "distribuidoras/editarFrm";
     }
 
-    public String guardarDistribuidora( ){
-
+    @PostMapping("/guardar")
+    public String guardarDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidora,
+                                       RedirectAttributes atr){
+        if(distribuidora.getIddistribuidora() != 0){
+            atr.addFlashAttribute("msg","Distribuidora actualizada exitosamente");
+        }else{
+            atr.addFlashAttribute("msg","Distribuidora creada exitosamente");
+        }
+        distribuidorasRepository.save(distribuidora);
+        return "redirect:/distribuidoras/lista";
     }
 
     @GetMapping("/borrar")
