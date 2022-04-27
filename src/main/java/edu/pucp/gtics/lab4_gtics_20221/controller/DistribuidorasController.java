@@ -52,7 +52,8 @@ public class DistribuidorasController {
     }
 
     @GetMapping("/nuevo")
-    public String nuevaDistribuidora(Model model){
+    public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidora,
+                                     Model model){
         model.addAttribute("listaPaises",paisesRepository.findAll());
         return "distribuidoras/editarFrm";
     }
@@ -60,6 +61,7 @@ public class DistribuidorasController {
     @PostMapping("/guardar")
     public String guardarDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidora,
                                        RedirectAttributes atr){
+        System.out.println("Id: " + distribuidora.getIddistribuidora());
         if(distribuidora.getIddistribuidora() != 0){
             atr.addFlashAttribute("msg","Distribuidora actualizada exitosamente");
         }else{

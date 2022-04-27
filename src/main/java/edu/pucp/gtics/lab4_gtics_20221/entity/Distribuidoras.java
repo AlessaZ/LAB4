@@ -30,11 +30,9 @@ public class Distribuidoras {
     private String web;
 
     @Digits(integer=4,fraction=0)
-    @Size(min=1800,max=2100)
     @Column(name="fundacion")
     private int fundacion = 1870;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "idsede")
     private Paises pais;

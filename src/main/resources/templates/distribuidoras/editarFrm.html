@@ -9,10 +9,12 @@
         <main>
             <!-- Contenido -->
         <div class="page-header text-center">
-            <h2 th:text="${distribuidora.iddistribuidora == 0 ? 'Nueva Distribuidora' : 'Editar Distribuidora'}"></h2>
+            <h2 th:text="${distribuidora.getIddistribuidora() == 0 ? 'Nueva Distribuidora' : 'Editar Distribuidora'}"></h2>
         </div>
         <div class="container-fluid">
                 <form method="POST" th:object="${distribuidora}" th:action="@{/distribuidoras/guardar}" class="row g-3" >
+
+                    <input th:field="*{iddistribuidora}" hidden>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input th:field="*{nombre}" type="text" class="form-control">
@@ -38,17 +40,19 @@
                                                                th:errors="*{fundacion}"></div>
                     </div>
                     <div class="form-group">
-                        <label for="">Sede</label>
-                        <select class="form-control" th:field="${pais.nombre}">
-                            <option th:each="pais: ${}" th:value="${}"
-                                    th:text="${jefe.managerid.firstname} + ' ' + ${jefe.managerid.lastname}">
+                        <label for="pais">Sede</label>
+                        <select th:field="*{pais.idpais}" class="form-select">
+                            <option th:each="pais: ${listaPaises}"
+                                    th:value="${pais.idpais}"
+                                    th:text="${pais.nombre}">
                             </option>
                         </select>
                     </div>
 
                     <div class="form-select">
                         <a th:href="@{/distribuidoras/lista}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-primary" th:text="Boton ---">Reg/act</button>
+                        <button type="submit" class="btn btn-primary"
+                                th:text="${distribuidora.getIddistribuidora() == 0 ? 'Crear' : 'Actualizar'}"></button>
                     </div>
                 </form>
         </div>
