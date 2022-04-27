@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-
+@RequestMapping("/juegos")
+@Controller
 public class JuegosController {
 
     @Autowired
@@ -33,26 +34,28 @@ public class JuegosController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping(value = {"", "/","/juegos/lista"})
-    public String listaJuegos (){
-
+    @GetMapping(value = {"", "/","/lista"})
+    public String listaJuegos (Model model){
+        List<Juegos> juegosList = juegosRepository.findAllByOrderByPrecioDesc();
+        model.addAttribute("juegosList", juegosList);
+        return "juegos/lista";
     }
 
-    public String vistaJuegos ( ){
-
-    }
-
-    public String nuevoJuegos( ){
-
-    }
-
-    public String editarJuegos( ){
-
-    }
-
-    public String guardarJuegos( ){
-
-    }
+//    public String vistaJuegos ( ){
+//
+//    }
+//
+//    public String nuevoJuegos( ){
+//
+//    }
+//
+//    public String editarJuegos( ){
+//
+//    }
+//
+//    public String guardarJuegos( ){
+//
+//    }
 
     @GetMapping("/juegos/borrar")
     public String borrarDistribuidora(@RequestParam("id") int id){

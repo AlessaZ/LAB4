@@ -1,100 +1,57 @@
 package edu.pucp.gtics.lab4_gtics_20221.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "juegos")
 public class Juegos {
-
     @Id
-    private int idjuego;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idjuego", nullable = false)
+    private Integer id;
 
+    @Column(name = "nombre", length = 50)
+    @Size(min=3, message = "El nombre debe contener como mínimo 3 caracteres")
+    @Size(max=45, message = "El nombre debe contener como máximo 45 caracteres")
     private String nombre;
 
+    @Column(name = "descripcion", length = 448)
+    @Size(min=3, message = "La descripción debe contener como mínimo 3 caracteres")
+    @Size(max=400, message = "La descripción debe contener como máximo 400 caracteres")
     private String descripcion;
 
-    private double precio;
+    @Column(name = "precio")
+    @Min(value=10)
+    @Max(value = 500)
+    private Double precio;
 
+    @Column(name = "image", length = 400)
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "idplataforma")
-
-    private Plataformas plataforma;
-
-    @ManyToOne
-    @JoinColumn(name = "iddistribuidora")
-
-    private Distribuidoras distribuidora;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idgenero")
-
+    @NotBlank
     private Generos genero;
 
-    public int getIdjuego() {
-        return idjuego;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idplataforma")
+    @NotBlank
+    private Plataformas plataforma;
 
-    public void setIdjuego(int idjuego) {
-        this.idjuego = idjuego;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ideditora")
+    private Editora editora;
 
-    public String getNombre() {
-        return nombre;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iddistribuidora")
+    @NotBlank
+    private Distribuidoras distribuidora;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public Plataformas getPlataforma() {
-        return plataforma;
-    }
-
-    public void setPlataforma(Plataformas plataforma) {
-        this.plataforma = plataforma;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Distribuidoras getDistribuidora() {
-        return distribuidora;
-    }
-
-    public void setDistribuidora(Distribuidoras distribuidora) {
-        this.distribuidora = distribuidora;
-    }
-
-    public Generos getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Generos genero) {
-        this.genero = genero;
-    }
 }
