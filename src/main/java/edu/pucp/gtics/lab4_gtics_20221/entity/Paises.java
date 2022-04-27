@@ -1,10 +1,6 @@
 package edu.pucp.gtics.lab4_gtics_20221.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 @Entity
@@ -15,7 +11,11 @@ public class Paises {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Min(value = 0, message = "Sede no puede estar vacío")
     private int idpais;
+    
+    @Column(name = "iso")
     private String iso;
+    
+    @Column(name = "nombre")
     private String nombre;
 
 
