@@ -2,6 +2,7 @@ package edu.pucp.gtics.lab4_gtics_20221.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
@@ -33,16 +34,17 @@ public class Juegos {
     private Double precio;
 
     @Column(name = "image", length = 400)
+    @URL(message = "Debe ingresar una url.")
     private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idgenero")
-    @NotBlank
+    @NotNull(message = "No puede ser nulo.")
     private Generos genero;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idplataforma")
-    @NotBlank
+    @NotNull(message = "No puede ser nulo.")
     private Plataformas plataforma;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,7 +53,7 @@ public class Juegos {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iddistribuidora")
-    @NotBlank
+    @NotNull(message = "No puede ser nulo.")
     private Distribuidoras distribuidora;
 
 }
