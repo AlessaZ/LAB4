@@ -19,19 +19,17 @@ public class Juegos {
     private int id;
 
     @Column(name = "nombre", length = 50)
-    @Size(min=3, message = "El nombre debe contener como mínimo 3 caracteres")
-    @Size(max=45, message = "El nombre debe contener como máximo 45 caracteres")
+    @Size(min=3,max=45, message = "Debe contener como entre 3 y 45 caracteres")
     private String nombre;
 
     @Column(name = "descripcion", length = 448)
-    @Size(min=3, message = "La descripción debe contener como mínimo 3 caracteres")
-    @Size(max=400, message = "La descripción debe contener como máximo 400 caracteres")
+    @Size(min=3, max=400, message = "Debe contener entre 3 y 400 caracteres")
     private String descripcion;
 
     @Column(name = "precio")
-    @Min(value=10)
-    @Max(value = 500)
-    private Double precio;
+    @Min(value=10, message = "Valor mínimo 10")
+    @Max(value = 500, message = "Valor máximo 500")
+    private Double precio=0.0;
 
     @Column(name = "image", length = 400)
     @URL(message = "Debe ingresar una url.")
@@ -39,12 +37,12 @@ public class Juegos {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idgenero")
-    @NotNull(message = "No puede ser nulo.")
+    @NotNull(message = "Género no puede estar vacío")
     private Generos genero;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idplataforma")
-    @NotNull(message = "No puede ser nulo.")
+    @NotNull(message = "Plataforma no puede estar vacío.")
     private Plataformas plataforma;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,7 +51,7 @@ public class Juegos {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iddistribuidora")
-    @NotNull(message = "No puede ser nulo.")
+    @NotNull(message = "Distribuidora no puede estar vacío.")
     private Distribuidoras distribuidora;
 
 }
