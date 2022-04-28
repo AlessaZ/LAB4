@@ -43,20 +43,12 @@ public class JuegosController {
         return "juegos/lista";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/nuevo")
     public String nuevoJuegos(@ModelAttribute("juego") Juegos juego, Model model) {
-        model.addAttribute("listaGenero",getListaGenero());
+        model.addAttribute("listaGenero",generosRepository.findAll());
         model.addAttribute("listaPlataform",getListaPlataform());
         model.addAttribute("listaDistribuidoras",getListaDistribuidoras());
         return "juegos/editarFrm";
-    }
-    public List<Generos> getListaGenero() {
-        List<Generos> listaGenero = generosRepository.findAll();
-        Generos e = new Generos();
-        e.setIdgenero(0);
-        e.setNombre("--Seleccione--");
-        listaGenero.add(0, e);
-        return listaGenero;
     }
     public List<Plataformas> getListaPlataform() {
         List<Plataformas> listaPlataform = plataformasRepository.findAll();
@@ -75,11 +67,11 @@ public class JuegosController {
         return listaDistribuidoras;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/guardar")
     public String guardarJuego(@ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult,
                                   RedirectAttributes attr, Model model) {
         if(bindingResult.hasErrors()){
-            model.addAttribute("listaGenero",getListaGenero());
+            model.addAttribute("listaGenero",generosRepository.findAll());
             model.addAttribute("listaPlataform",getListaPlataform());
             model.addAttribute("listaDistribuidoras",getListaDistribuidoras());
             return "juegos/editarFrm";
@@ -89,21 +81,20 @@ public class JuegosController {
                 juegosRepository.save(juego);
                 return "redirect:/juegos/lista";
             } else {
-                Juegos juegoDB = juegosRepository.getById(juego.getId());
-                juegosRepository.save(juegoDB);
+                juegosRepository.save(juego);
                 attr.addFlashAttribute("msg", "Juego actualizado exitosamente");
                 return "redirect:/juegos/lista";
             }
         }
     }
-    @GetMapping("/edit")
+    @GetMapping("/editar")
     public String editarJuego(@ModelAttribute("juego") Juegos juegos, Model model,
                                  @RequestParam(value="id", required = false, defaultValue = "1") int id) {
         Optional<Juegos> juegosOptional = juegosRepository.findById(id);
         if(juegosOptional.isPresent()){
             Juegos juego = juegosOptional.get();
             model.addAttribute("juego",juego);
-            model.addAttribute("listaGenero",getListaGenero());
+            model.addAttribute("listaGenero",generosRepository.findAll());
             model.addAttribute("listaPlataform",getListaPlataform());
             model.addAttribute("listaDistribuidoras",getListaDistribuidoras());
             return "juegos/editarFrm";
@@ -114,7 +105,7 @@ public class JuegosController {
 //    public String vistaJuegos ( ){
 //    }
 
-    @GetMapping("/delete")
+    @GetMapping("/borrar")
     public String borrarDistribuidora(@RequestParam(value = "id",defaultValue = "1") int id , RedirectAttributes attr ){
         Optional<Juegos> opt = juegosRepository.findById(id);
         if (opt.isPresent()) {

@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
 <body>
 <div class='container container-app'>
@@ -12,7 +12,7 @@
 
         </div>
         <div class="container-fluid">
-                <form th:action="@{/juegos/save}"  method="POST" class="row g-3" th:object="${juego}" >
+                <form th:action="@{/juegos/guardar}"  method="POST" class="row g-3" th:object="${juego}" >
                     <input type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <label>Nombre</label>
@@ -23,14 +23,18 @@
                     </div>
                     <div class="form-group">
                         <label>Descripción</label>
-                        <input th:field="*{descripcion}" type="text" class="form-control" name="descripcion" id="descripcion"
+                        <textarea th:field="*{descripcion}" type="text" class="form-control" name="descripcion" id="descripcion"
                                th:classappend="${#fields.hasErrors('descripcion')?'is-invalid':''}"/>
+                        </textarea>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}"
                              th:errors="*{descripcion}"></div>
                     </div>
                     <div class="form-group">
                         <label for="genero">Género</label>
                         <select class="form-select" name="genero" id="genero" th:classappend="${#fields.hasErrors('genero')?'is-invalid':''}">
+                            <option value="-1">
+                                --Seleccione--
+                            </option>
                             <option th:each="genero : ${listaGenero}"
                                     th:selected="${juego.genero != null and (genero.idgenero == juego.genero.idgenero)}"
                                     th:text="${genero.nombre}"

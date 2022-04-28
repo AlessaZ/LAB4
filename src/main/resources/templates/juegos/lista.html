@@ -13,7 +13,7 @@
             </div>
             <div class="container-fluid">
 
-                <a class="btn btn-primary mt-4 mb-4" th:href="@{/juegos/new}"><span class="bi bi-plus-circle"></span> Nuevo Juego</a>
+                <a class="btn btn-primary mt-4 mb-4" th:href="@{/juegos/nuevo}"><span class="bi bi-plus-circle"></span> Nuevo Juego</a>
                 <div th:if="${msg != null}" class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="bi bi-check-circle-fill"></i>
                     <span th:text="${msg}"></span>
@@ -42,13 +42,18 @@
                             </div>
 
                         </td>
-                        <td th:text="${juego.nombre}"></td>
+                        <td >
+                            <span th:text="${juego.nombre}" >
+                            </span>
+                            <span class="badge bg-warning text-dark" th:text="${juego.genero.nombre}">
+                            </span>
+                        </td>
                         <td th:text="${juego.descripcion}"></td>
                         <td th:text="${juego.plataforma.nombre}"></td>
                         <td th:text="${juego.distribuidora.nombre}"></td>
                         <td th:text="${juego.precio}"></td>
-                        <td><a class="btn btn-primary" th:title="Editar" th:href="@{'/juegos/edit?id=' + ${juego.id}}"><span class="bi bi-pencil-square"></span></a></td>
-                        <td><a class="btn btn-danger" th:title="Borrar" th:href="@{'/juegos/delete?id=' + ${juego.id}}"><span class="bi bi-trash"></span></a></td>
+                        <td><a class="btn btn-primary" th:title="Editar" th:href="@{'/juegos/editar?id=' + ${juego.id}}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a class="btn btn-danger" th:title="Borrar" th:href="@{'/juegos/borrar?id=' + ${juego.id}}"><span class="bi bi-trash"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
